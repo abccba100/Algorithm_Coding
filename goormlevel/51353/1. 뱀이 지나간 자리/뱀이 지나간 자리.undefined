@@ -1,0 +1,33 @@
+// Run by Node.js
+const readline = require('readline');
+
+(async () => {
+	let rl = readline.createInterface({ input: process.stdin });
+	
+	for await (const line of rl) {
+		let [y, x] = line.split(' ').map(Number);
+		let complete = true;
+		let isLeft = true;
+		
+		for(let i=0;i<y;i++){
+			if(complete){
+				console.log('#'.repeat(x));
+				complete = false;
+			}
+			else{
+				complete = true;
+				if(isLeft){
+					console.log('.'.repeat(x - 1) + '#');
+					isLeft = false
+				}
+				else{
+					console.log('#' + '.'.repeat(x - 1));
+					isLeft = true
+				}
+			}
+		}
+		rl.close();
+	}
+	
+	process.exit();
+})();
